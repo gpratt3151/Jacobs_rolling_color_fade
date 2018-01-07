@@ -1,7 +1,6 @@
 /* ARDUINO CONSTANT & VARIABLE DEFINITIONS
    ---------------------------------------  */
 // Arduino output pin receiving brightness levels for a specific color
-// PINs below are for the Adafruit Trinket
 #define RED_PIN 5
 #define GREEN_PIN 6
 #define BLUE_PIN 3
@@ -20,13 +19,6 @@ int FadeStep_R;
 int FadeStep_G;
 int FadeStep_B;
 
-// Number of times LED has completed a full fade cycle
-//int CycleCountB; 
-//int CycleCountR;
-//int CycleCountG;
-
-// Used to establish what values to send to LED strip  
-//int ColorValue;
 
 // =====================================
 // ARDUINO SETUP ROUTINE
@@ -59,11 +51,6 @@ void setup() {
   FadeStep_R = 0;      //0      These settings for normal ROY G BIV
   FadeStep_G = 325;    //510
   FadeStep_B = 650;    //-510
-
-  // Set each LED's fade cycle counter to 0
-  //CycleCountB = 0;
-  //CycleCountR = 0;
-  //CycleCountG = 0;
 }
 
 // =====================================
@@ -79,19 +66,16 @@ void loop() {
   if (FadeStep_R == -764) {FadeStep_R = 765;}
   if (FadeStep_R < 0) {Brightness_R = FadeStep_R * -1;}
   if (FadeStep_R >= 510) {Brightness_R = FadeStep_R - 510;}
-  // if (FadeStep_R == -510) {CycleCountR = CycleCountR + 1;} //count + 1 for each full fade cycle
  
   // Fade green LED according to it's fade step counter.  
   if (FadeStep_G == -764) {FadeStep_G = 765;}
   if (FadeStep_G < 0) {Brightness_G = FadeStep_G * -1;}
   if (FadeStep_G >= 510) {Brightness_G = FadeStep_G - 510;}
-  // if (FadeStep_G == -510) {CycleCountG = CycleCountG + 1;} //count + 1 for each full fade cycle
  
   // Fade blue LED according to it's fade step counter.
   if (FadeStep_B == -764) {FadeStep_B = 765;}
   if (FadeStep_B < 0) {Brightness_B = FadeStep_B * -1;}
   if (FadeStep_B >= 510) {Brightness_B = FadeStep_B - 510;}
-  //if (FadeStep_B == -510) {CycleCountB = CycleCountB + 1;} // count + 1 for each full fade cycle
   
   // if step counters are intialized 510 steps apart, -510 is the step in each LED's fade cycle
   // that it will be on full brightness while the other 2 LED's are off.
@@ -99,26 +83,9 @@ void loop() {
   Brightness_G = constrain(Brightness_G, 0, 255);
   Brightness_R = constrain(Brightness_R, 0, 255); 
 
-  //if (CycleCountB == 8) {CycleCountB = 0;}  
-  //if (CycleCountR == 8) {CycleCountR = 0;}
-  //if (CycleCountG == 8) {CycleCountG = 0;}
-    
-  //if (CycleCountR == 2) {ColorValue = 1 ;} //set point for pattern to pause on red
-  //if (CycleCountR > 2) {ColorValue = 0;}   
-
-  //if (CycleCountG == 4) {ColorValue = 2;}   //set point for pattern to pause on green
-  //if (CycleCountG > 4) {ColorValue = 0;}
-  
-  //if (CycleCountB == 6) {ColorValue = 3;}   //set point for pattern to pause on blue
-  //if (CycleCountB > 6) {ColorValue = 0;}
- 
   //Send brightness levels to LED strip
   setLEDS(Brightness_R, Brightness_G, Brightness_B);
-  //if (ColorValue == 0) {setLEDS (Brightness_R, Brightness_G, Brightness_B);} // default to fade pattern
-  //if (ColorValue == 1) {setLEDS (255, 0, 0);}  //LED strip red
-  //if (ColorValue == 2) {setLEDS (0, 255, 0);}  //LED strip green
-  //if (ColorValue == 3) {setLEDS (0, 0, 255);}  //LED strip blue
-     
+
   // slow the loop down a bit
   delay(Loop_Delay);
 }
@@ -129,6 +96,3 @@ void setLEDS (int ipR, int ipG, int ipB) {
   analogWrite(GREEN_PIN, ipG);
   analogWrite(BLUE_PIN, ipB);
 }
-
-    
-
