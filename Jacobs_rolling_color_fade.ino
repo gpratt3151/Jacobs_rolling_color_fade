@@ -1,9 +1,11 @@
 /* ARDUINO CONSTANT & VARIABLE DEFINITIONS
    ---------------------------------------  */
 // Arduino output pin receiving brightness levels for a specific color
-#define RED_PIN 5
-#define GREEN_PIN 6
-#define BLUE_PIN 3
+// PINs for Adafruit Trinket. Only 0,1 & 4 are PWM. Note: 4 is also the
+// onboard LED.
+#define RED_PIN 0
+#define GREEN_PIN 1
+#define BLUE_PIN 4
 
 // # of milliseconds to pause between each pass of the main Arduino loop
 #define Loop_Delay 30
